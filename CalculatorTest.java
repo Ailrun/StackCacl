@@ -93,12 +93,6 @@ class Expression {
 			case '7':
 			case '8':
 			case '9':
-				if (isRightInfixSuccessor(currentTokenType,
-									 TokenType.TTNumeric)) {
-					currentTokenType = TokenType.TTNumeric;
-				} else {
-					throw new IllegalArgumentException("Wrong Expression");
-				}
 				newToken = (Token) new Numeric(unparsedToken);
 				break;
 			case '+':
@@ -126,9 +120,14 @@ class Expression {
 			default:
 				throw new IllegalArgumentException("Wrong Expression");
 			}
+			//System.out.println(currentTokenType.toString() + "," + newToken.getType().toString());
 			if (isRightInfixSuccessor(currentTokenType, newToken.getType())) {
 				currentTokenType = newToken.getType();
+			} else {
+				throw new IllegalArgumentException("Wrong Expression");
 			}
+			//System.out.println(currentTokenType.toString() + "," + newToken.getType().toString());
+			
 			tokens.push(newToken);
 		}
 
